@@ -19,9 +19,8 @@ export default class reactws extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
-                    This is a demo app for uPort native integration.
+                    This is a demo app for native integration.
                 </Text>
-                <UPortNativeWrapperDemo/>
             </View>
         );
     }
