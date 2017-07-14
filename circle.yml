@@ -37,7 +37,13 @@ general:
   artifacts:
     - "android/app/build/reports"
     - "android/app/build/outputs/apk"
+compile:
+  override:
+    - cd android && ./gradlew deliverArchives
 test:
   override:
     - yarn test -- --maxWorkers 2
     - cd android && ./gradlew lint test
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
