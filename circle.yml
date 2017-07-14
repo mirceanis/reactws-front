@@ -30,7 +30,7 @@ dependencies:
     - ~/.cache/yarn
     - ~/.gradle
     - android/.gradle
-test:
-  override:
-    - yarn test -- --maxWorkers 2
-    - cd android && ./gradlew lint test
+# test:
+#   override:
+#     - yarn test -- --maxWorkers 2
+#     - cd android && ./gradlew lint test
