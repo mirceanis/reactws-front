@@ -33,6 +33,10 @@ dependencies:
     - ~/.cache/yarn
     - ~/.gradle
     - android/.gradle
+general:
+  artifacts:
+    - "android/app/build/reports"
+    - "android/app/build/outputs/apk"
 test:
   override:
     - yarn test -- --maxWorkers 2
