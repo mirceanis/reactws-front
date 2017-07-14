@@ -16,6 +16,7 @@ dependencies:
       else
         echo "The correct version of Yarn is already installed."
       fi
+    - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - touch /root/.android/repositories.cfg
     - $ANDROID_HOME/tools/bin/sdkmanager "build-tools;25.0.3"
