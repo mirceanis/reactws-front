@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://dl.bintray.com/kunickiaj/maven"
+        }
+    }
+}
+
+plugins {
+    id "io.errorlab.gradle.vault" version "0.1.0"
+}
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -89,6 +101,16 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+apply from: "../version.gradle"
+apply from: "../signing.gradle"
+
+boolean releaseRequested = false
+gradle.startParameter.taskNames.each {
+    if (it.toLowerCase().find(/.*(release|deliver|build).*/)) {
+        releaseRequested = true
+    }
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -97,11 +119,13 @@ android {
         applicationId "com.reactws"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode = getBuildVersionCode()
+        versionName = getBuildVersionName()
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     splits {
         abi {
@@ -111,18 +135,34 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+
+    signingConfigs {
+        release {
+            if (releaseRequested) {
+                storeFile getReleaseKeystore()
+                storePassword getReleaseKeystorePassword()
+                keyAlias getReleaseKeyAlias()
+                keyPassword getReleaseKeyPassword()
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            if (releaseRequested) {
+                signingConfig signingConfigs.release
+            }
         }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
