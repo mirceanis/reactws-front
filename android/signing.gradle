@@ -177,7 +177,7 @@ task clearSecrets {
 
 project.afterEvaluate {
     Task assemblyTask = tasks.findByPath("assembleRelease");
-    assemblyTask.dependsOn prepareVault
-    assemblyTask.finalizedBy clearSecrets
+    assemblyTask?.dependsOn prepareVault
+    assemblyTask?.finalizedBy clearSecrets
 }
 
