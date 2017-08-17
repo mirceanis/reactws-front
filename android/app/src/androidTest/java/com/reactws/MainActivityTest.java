@@ -32,7 +32,6 @@ public class MainActivityTest {
 
     @Test
     public void mainActivityTest() throws InterruptedException {
-        Thread.sleep(10000);
         ViewInteraction textView = onView(
                 allOf(withText("This is a demo app for native integration."),
                         childAtPosition(

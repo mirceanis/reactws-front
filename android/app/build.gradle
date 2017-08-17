@@ -125,6 +125,8 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
 
+        buildConfigField "boolean", "REACT_DEBUG", "false"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     splits {
@@ -156,8 +158,11 @@ android {
     buildTypes {
         debug {
             manifestPlaceholders = [excludeSystemAlertWindowPermission: "false"]
+            buildConfigField "boolean", "REACT_DEBUG", "true"
         }
         release {
+            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
+            buildConfigField "boolean", "REACT_DEBUG", "false"
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             if (releaseRequested) {
@@ -165,10 +170,10 @@ android {
             }
         }
         rnrelease {
+            //this is a release build as far as react-native is concerned
+            // but is debuggable as an android app
+            initWith(release)
             debuggable true
-            manifestPlaceholders = [excludeSystemAlertWindowPermission: "true"]
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.debug
         }
     }
