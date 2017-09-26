@@ -1,16 +1,28 @@
 package com.reactws;
 
-import com.facebook.react.ReactActivity;
+import android.content.Intent;
 
-public class MainActivity extends ReactActivity {
+import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.controllers.SplashActivity;
 
-    /**
-     * Returns the name of the main component registered from JavaScript.
-     * This is used to schedule rendering of the component.
-     */
+public class MainActivity extends SplashActivity {
+
     @Override
-    protected String getMainComponentName() {
-        System.out.println("hello world");
-        return "reactws";
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // This activity must be coerced into a single instance in the manifest (`launchMode="singleTask"`)
+        // making this callback the place to capture deep links and pass them to react.
+        NavigationApplication.instance.getReactGateway().onNewIntent(intent);
+        NavigationApplication.instance.getActivityCallbacks().onNewIntent(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (NavigationApplication.instance.isReactContextInitialized()) {
+            //in case the app is resumed into an already initialized react-context,
+            // the splash needs to disappear
+            finish();
+        }
     }
 }
