@@ -5,7 +5,7 @@ machine:
     PATH: "${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
     TERM: dumb
   node:
-    version: v7.3.0
+    version: v8.0.0
   java:
     version: oraclejdk8
 dependencies:
@@ -17,14 +17,14 @@ dependencies:
       else
         echo "The correct version of Yarn is already installed."
       fi
-    - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
+#    - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
     - mkdir -p ${HOME}/.android && touch ${HOME}/.android/repositories.cfg
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --update
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;26.0.2"
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-26"
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools"
-    - yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository"
+#    - yes | $ANDROID_HOME/tools/bin/sdkmanager "extras;android;m2repository" "extras;google;m2repository"
     
   override:
     - yarn install
@@ -43,7 +43,7 @@ compile:
     - cd android && ./gradlew deliverArchives
 test:
   override:
-    - yarn test -- --maxWorkers 2
+#    - yarn test -- --maxWorkers 2
     - cd android && ./gradlew lint test
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
