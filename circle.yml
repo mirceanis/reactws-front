@@ -6,6 +6,7 @@ machine:
 #    JAVA_OPTIONS: "-Xms2048m -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
     _JAVA_OPTIONS: "-Xms1024M -Xmx1536M -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
     TERM: dumb
+    REACT_NATIVE_MAX_WORKERS: 1
   node:
     version: v8.0.0
   java:
@@ -30,8 +31,12 @@ dependencies:
     
   override:
     - yarn install
-    - cd android && ./gradlew tasks --all
-    - cd android && ./gradlew dependencies
+    - cd android && ./gradlew :app:dependencies
+    # Only way I know to pre-download dependencies is to all them directly
+    - cd android && ./gradlew :react-native-camera:dependencies
+    - cd android && ./gradlew :react-native-vector-icons:dependencies
+    - cd android && ./gradlew :react-native-randombytes:dependencies
+    - cd android && ./gradlew :react-native-device-info:dependencies
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
