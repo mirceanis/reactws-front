@@ -28,7 +28,7 @@ dependencies:
     
   override:
     - yarn install
-    - cd android && ./gradlew dependencies
+    - cd android && ./gradlew tasks --all
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
