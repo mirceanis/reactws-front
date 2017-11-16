@@ -4,6 +4,7 @@ machine:
     ANDROID_HOME: /usr/local/android-sdk-linux
     PATH: "${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
     JAVA_OPTIONS: "-Xms2048m -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
+    _JAVA_OPTIONS: "-Xms2048m -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
     TERM: dumb
   node:
     version: v8.0.0
