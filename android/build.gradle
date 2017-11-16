@@ -1,36 +1,42 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+
+    ext {
+
+        compile_sdk_version = 26
+        build_tools_version = "26.0.2"
+        gradle_tools_version = "3.0.0"
+        google_services_version = "3.0.0"
+
+        //check for updates at https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        fabric_tools_version = "1.24.4"
+
+        supportLibVersion = "26.1.0"
+        playServicesVersion = "11.6.0"
+        okhttpVersion = "3.6.0"
+        awsLibVersion = "2.3.9"
+
+        testRunnerVersion = "1.0.0"
+        espressoVersion = "3.0.0"
+        junitVersion = "4.12"
+
+        reactNativeVersion = "0.48.3"
+        onfidoVersion = "1.0.0"
+
+
+    }
+
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath "com.android.tools.build:gradle:$gradle_tools_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-}
-
-ext {
-
-    compile_sdk_version = 26
-    build_tools_version = "26.0.2"
-
-    supportLibVersion = "26.1.0"
-    playServicesVersion = "11.6.0"
-    okhttpVersion = "3.6.0"
-    awsLibVersion = "2.3.9"
-
-    testRunnerVersion = "1.0.0"
-    espressoVersion = "3.0.0"
-    junitVersion = "4.12"
-
-    reactNativeVersion = "0.48.3"
-    onfidoVersion = "0.9.2"
-
-
 }
 
 allprojects {

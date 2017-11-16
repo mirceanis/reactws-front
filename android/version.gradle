@@ -1,3 +1,15 @@
+
+buildscript {
+
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_tools_version"
+    }
+}
+
 /**
  * Generates a {@code long} version code
  * calculated from the {@code <Major>.<Minor>.<Build>} integer components of a version name String.
@@ -126,6 +138,8 @@ task deliverArchives {
     group = "playstore"
 }
 
+import com.android.build.OutputFile
+
 android.applicationVariants.all { variant ->
 
     if (!variant.name.toLowerCase().contains("release")) {
@@ -156,11 +170,14 @@ android.applicationVariants.all { variant ->
 
         //go through each output and apply a proper name
         variant.outputs.each { output ->
+
+            def abi = output.getFilter(OutputFile.ABI) ?: ""
+
             from(output.outputFile) {
                 exclude "*release-unaligned.apk", "*debug-unaligned.apk"
                 rename { String oldName ->
                     def flavor = variant.flavorName?:variant.buildType.name
-                    "${rootProject.name}-${getVersionName()}-${flavor}.apk".replaceAll(/\s/, "-")
+                    "${rootProject.name}-${getVersionName()}-${flavor}-${abi}.apk".replaceAll(/\s/, "-")
                 }
             }
         }
