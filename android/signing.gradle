@@ -7,10 +7,10 @@ import groovy.transform.Field
 @Field private File vaultKeystoreTempFile
 
 // hardcoded secret paths in vault
-@Field private static final String secretKeystoreFileData = "secret/keystore_file_data"
-@Field private static final String secretKeystorePassword = "secret/keystore_password"
-@Field private static final String secretKeyAlias = "secret/key_alias"
-@Field private static final String secretKeyPassword = "secret/key_password"
+@Field private static final String secretKeystoreFileData = "secret/android/keystore_file_data"
+@Field private static final String secretKeystorePassword = "secret/android/keystore_password"
+@Field private static final String secretKeyAlias = "secret/android/key_alias"
+@Field private static final String secretKeyPassword = "secret/android/key_password"
 
 /**
  * Utility function to check if a file can be read from this process
@@ -19,16 +19,16 @@ import groovy.transform.Field
  */
 static boolean fileReadable(File file) {
     if (!file.exists() || !file.canRead())
-        return false;
+        return false
 
     try {
-        FileReader fileReader = new FileReader(file.getAbsolutePath());
-        fileReader.read();
-        fileReader.close();
+        FileReader fileReader = new FileReader(file.getAbsolutePath())
+        fileReader.read()
+        fileReader.close()
     } catch (Exception ignored) {
-        return false;
+        return false
     }
-    return true;
+    return true
 }
 
 /**
@@ -56,7 +56,7 @@ def clearFields() {
 
 
 def getReleaseKeystore() {
-
+    checkVaultEnvironment()
     String keystoreFile
     if (project.hasProperty("IGNORE_VAULT")) {
         //build release using dummy signature
@@ -69,14 +69,14 @@ def getReleaseKeystore() {
                     "Make sure to have $secretKeystoreFileData in the vault.\n" +
                     "Run this task with -PIGNORE_VAULT to skip secrets and build a release apk using a dummy signature", e)
         }
-        vaultKeystoreTempFile = File.createTempFile("datapipe-ks", ".jksdump");
-        byte[] keystoreBytes = Base64.decoder.decode(b64KeystoreFileData);
+        vaultKeystoreTempFile = File.createTempFile("datapipe-ks", ".jksdump")
+        byte[] keystoreBytes = Base64.decoder.decode(b64KeystoreFileData)
 
-        FileOutputStream stream = new FileOutputStream(vaultKeystoreTempFile);
+        FileOutputStream stream = new FileOutputStream(vaultKeystoreTempFile)
         try {
-            stream.write(keystoreBytes);
+            stream.write(keystoreBytes)
         } finally {
-            stream.close();
+            stream.close()
         }
         keystoreFile = vaultKeystoreTempFile
     }
@@ -85,6 +85,7 @@ def getReleaseKeystore() {
 }
 
 def getReleaseKeystorePassword() {
+    checkVaultEnvironment()
     String keystorePassword
     if (project.hasProperty("IGNORE_VAULT")) {
         //build release using dummy signature
@@ -104,6 +105,7 @@ def getReleaseKeystorePassword() {
 
 
 def getReleaseKeyAlias() {
+    checkVaultEnvironment()
     String keyAlias
     if (project.hasProperty("IGNORE_VAULT")) {
         //build release using dummy signature
@@ -122,6 +124,7 @@ def getReleaseKeyAlias() {
 }
 
 def getReleaseKeyPassword() {
+    checkVaultEnvironment()
     String keyPassword
     if (project.hasProperty("IGNORE_VAULT")) {
         //build release using dummy signature
@@ -147,11 +150,27 @@ def checkVaultEnvironment() {
         return
     }
 
-    if (System.env.VAULT_ADDR == null || System.env.VAULT_TOKEN == null) {
+    File tokenFile = new File("${System.env.HOME}/.vault-token")
+
+    if (fileReadable(tokenFile)) {
+        if (System.env.VAULT_TOKEN == null) {
+            project?.vault?.token = tokenFile.text
+        }
+    }
+
+    if (System.env.VAULT_ADDR == null || ( System.env.VAULT_TOKEN == null && !fileReadable(tokenFile) )) {
         throw new InvalidUserDataException("Vault coordinates are not configured.\n" +
                 "VAULT_ADDR and VAULT_TOKEN need to be set as environment variables.\n" +
                 "Run this task with -PIGNORE_VAULT to skip secrets and build a release apk using a dummy signature")
     }
+}
+
+def doClearSecrets() {
+    clearFields()
+    fillWithGarbage(vaultKeystoreTempFile)
+    println "deleting $vaultKeystoreTempFile"
+    vaultKeystoreTempFile?.delete()
+    println "deleted $vaultKeystoreTempFile"
 }
 
 ext {
@@ -162,22 +181,29 @@ ext {
 }
 
 task prepareVault {
-    doLast {
+    doFirst {
         checkVaultEnvironment()
     }
 }
 
 task clearSecrets {
     doLast {
-        clearFields()
-        fillWithGarbage(vaultKeystoreTempFile)
-        vaultKeystoreTempFile?.delete()
+        doClearSecrets()
     }
 }
 
 project.afterEvaluate {
-    Task assemblyTask = tasks.findByPath("assembleRelease");
+    Task signingTask = tasks.findByPath("validateSigningRelease")
+    signingTask?.dependsOn prepareVault
+
+    Task assemblyTask = tasks.findByPath("assembleRelease")
     assemblyTask?.dependsOn prepareVault
     assemblyTask?.finalizedBy clearSecrets
+}
+
+gradle.taskGraph.whenReady {
+    gradle.taskGraph.allTasks[-1].doLast {
+        doClearSecrets()
+    }
 }
 

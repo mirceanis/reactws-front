@@ -3,9 +3,10 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -14,15 +15,19 @@ buildscript {
 
 ext {
 
-    supportLibVersion = "25.4.0"
-    playServicesVersion = "11.0.4"
+    compile_sdk_version = 26
+    build_tools_version = "26.0.2"
+
+    supportLibVersion = "26.1.0"
+    playServicesVersion = "11.6.0"
+    okhttpVersion = "3.6.0"
     awsLibVersion = "2.3.9"
 
     testRunnerVersion = "1.0.0"
     espressoVersion = "3.0.0"
     junitVersion = "4.12"
 
-    reactNativeVersion = "0.48"
+    reactNativeVersion = "0.48.3"
     onfidoVersion = "0.9.2"
 
 
@@ -34,15 +39,24 @@ allprojects {
     repositories {
         mavenLocal()
         jcenter()
-        maven {
-            url 'https://maven.google.com'
-        }
+        google()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
         maven {
             url  "https://dl.bintray.com/onfido/maven"
+        }
+    }
+}
+
+subprojects { subproject ->
+    afterEvaluate{
+        if((subproject.plugins.hasPlugin('android') || subproject.plugins.hasPlugin('android-library'))) {
+            android {
+                compileSdkVersion compile_sdk_version
+                buildToolsVersion build_tools_version
+            }
         }
     }
 }

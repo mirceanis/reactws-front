@@ -439,3 +439,8 @@ buck-out/
 /*.gcno
 
 # End of https://www.gitignore.io/api/xcode,macos,android,reactnative,androidstudio
+
+
+jsconfig.json
+.vscode/
+.settings/

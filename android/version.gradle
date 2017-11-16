@@ -93,8 +93,7 @@ task checkCleanRepo() {
 }
 
 static def getBuildVersionName() {
-    def cv = System.env.CIRCLE_VERSION_NAME?.replaceAll(/\$\{CIRCLE_BUILD_NUM\}/, "${System.env.CIRCLE_BUILD_NUM}")
-    def circleVersion = cv?: '0.0.42'
+    def circleVersion = System.env.CIRCLE_VERSION_NAME?: '0.0.42'
     return "$circleVersion"
 }
 
@@ -150,7 +149,7 @@ android.applicationVariants.all { variant ->
                 include "mapping.txt"
                 rename { String oldName ->
                     def flavor = variant.flavorName?:variant.buildType.name
-                    "${rootProject.name}-${getVersionName()}-${flavor}-mapping.txt"
+                    "${rootProject.name}-${getVersionName()}-${flavor}-mapping.txt".replaceAll(/\s/, "-")
                 }
             }
         }
@@ -161,7 +160,7 @@ android.applicationVariants.all { variant ->
                 exclude "*release-unaligned.apk", "*debug-unaligned.apk"
                 rename { String oldName ->
                     def flavor = variant.flavorName?:variant.buildType.name
-                    "${rootProject.name}-${getVersionName()}-${flavor}.apk"
+                    "${rootProject.name}-${getVersionName()}-${flavor}.apk".replaceAll(/\s/, "-")
                 }
             }
         }
@@ -174,7 +173,7 @@ android.applicationVariants.all { variant ->
         into "${getBuildArtifactsDir()}"
 
         doLast {
-            logger.lifecycle "publishing ${rootProject.name}:${variant.name}:${getBuildVersionName()} to: ${getBuildArtifactsDir()}"
+            logger.lifecycle "publishing ${rootProject.name}:${variant.name}:${variant.versionName} to: ${getBuildArtifactsDir()}"
         }
     }
 
