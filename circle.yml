@@ -34,6 +34,8 @@ dependencies:
     - ~/.cache/yarn
     - ~/.gradle
     - android/.gradle
+    - ~/.android
+    - $ANDROID_HOME
 general:
   artifacts:
     - "android/app/build/reports"
@@ -44,7 +46,8 @@ compile:
 test:
   override:
 #    - yarn test -- --maxWorkers 2
-    - cd android && ./gradlew lint test
+    - cd android && ./gradlew lint
+    - cd android && ./gradlew test
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
