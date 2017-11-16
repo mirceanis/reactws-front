@@ -3,6 +3,7 @@ machine:
     YARN_VERSION: 1.2.1
     ANDROID_HOME: /usr/local/android-sdk-linux
     PATH: "${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+    TERM: dumb
   node:
     version: v7.3.0
   java:
