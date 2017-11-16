@@ -31,12 +31,8 @@ dependencies:
     
   override:
     - yarn install
-    - cd android && ./gradlew :app:dependencies
-    # Only way I know to pre-download dependencies is to all them directly
-    - cd android && ./gradlew :react-native-camera:dependencies
-    - cd android && ./gradlew :react-native-vector-icons:dependencies
-    - cd android && ./gradlew :react-native-randombytes:dependencies
-    - cd android && ./gradlew :react-native-device-info:dependencies
+    #this should force a dependency lookup and download
+    - cd android && ./gradlew clean
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
