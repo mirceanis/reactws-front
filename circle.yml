@@ -17,7 +17,7 @@ dependencies:
       else
         echo "The correct version of Yarn is already installed."
       fi
-#    - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
+    - echo y | android update sdk --no-ui --all --filter "platform-tools, tools"
     - mkdir -p ${HOME}/.android && touch ${HOME}/.android/repositories.cfg
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --update
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
