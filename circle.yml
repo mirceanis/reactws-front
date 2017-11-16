@@ -3,8 +3,8 @@ machine:
     YARN_VERSION: 1.2.1
     ANDROID_HOME: /usr/local/android-sdk-linux
     PATH: "${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-#    JAVA_OPTIONS: "-Xms2048m -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
-    _JAVA_OPTIONS: "-Xms1024M -Xmx1536M -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xms256m -Xmx2048m -XX:+HeapDumpOnOutOfMemoryError" -Dorg.gradle.daemon=false -Dorg.gradle.parallel=false'
+    _JAVA_OPTIONS: "-Xms1024M -Xmx2048M -XX:-UseGCOverheadLimit -XX:+UseConcMarkSweepGC"
     TERM: dumb
     REACT_NATIVE_MAX_WORKERS: 1
   node:
@@ -43,7 +43,7 @@ dependencies:
     - ~/.gradle
     - android/.gradle
     - ~/.android
-    - $ANDROID_HOME
+    - /usr/local/android-sdk-linux
 general:
   artifacts:
     - "android/app/build/reports"
