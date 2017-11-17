@@ -117,9 +117,9 @@ android {
 
     defaultConfig {
         applicationId "com.reactws"
-        minSdkVersion 23
+        minSdkVersion 16
         targetSdkVersion 25
-        versionCode = 46
+        versionCode = 47
         versionName = "0.1.$versionCode"
         ndk {
             abiFilters "armeabi-v7a", "x86"
