@@ -119,7 +119,7 @@ android {
         applicationId "com.reactws"
         minSdkVersion 23
         targetSdkVersion 25
-        versionCode = 44
+        versionCode = 45
         versionName = "0.1.$versionCode"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -135,7 +135,7 @@ android {
         abi {
             reset()
             enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
+            universalApk true  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
         }
     }
