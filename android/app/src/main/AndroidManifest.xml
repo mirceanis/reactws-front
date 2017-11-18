@@ -18,17 +18,13 @@
 
     <uses-feature
         android:name="android.hardware.camera.autofocus"
-        android:required="true"
+        android:required="false"
+        tools:node="replace"
         />
 
     <uses-feature
         android:glEsVersion="0x20000"
         android:required="false" />
-
-    <!--<uses-feature-->
-        <!--android:name="android.hardware.faketouch"-->
-        <!--android:required="true"-->
-        <!--/>-->
 
     <!--<uses-feature-->
         <!--android:name="android.hardware.screen.portrait"-->
