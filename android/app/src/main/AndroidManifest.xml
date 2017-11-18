@@ -11,21 +11,19 @@
     <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
 
-    <!--<uses-feature-->
-        <!--android:name="android.hardware.camera"-->
-        <!--android:required="false"-->
-        <!--tools:strict="true"-->
-        <!--/>-->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"
+        />
 
-    <!--<uses-feature-->
-        <!--android:name="android.hardware.camera.autofocus"-->
-        <!--android:required="false"-->
-        <!--tools:strict="true"-->
-        <!--/>-->
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false"
+        />
 
-    <!--<uses-feature-->
-        <!--android:glEsVersion="0x20000"-->
-        <!--android:required="false" />-->
+    <uses-feature
+        android:glEsVersion="0x20000"
+        android:required="false" />
 
     <application
         android:allowBackup="false"
