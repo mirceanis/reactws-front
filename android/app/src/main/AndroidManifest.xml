@@ -3,39 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.reactws">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.SYSTEM_ALERT_WINDOW"
-        tools:remove="${excludeSystemAlertWindowPermission}" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
+    <!--<uses-permission-->
+        <!--android:name="android.permission.SYSTEM_ALERT_WINDOW"-->
+        <!--tools:remove="${excludeSystemAlertWindowPermission}" />-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!--<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false"
-        tools:strict="true"
-        />
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.camera"-->
+        <!--android:required="false"-->
+        <!--tools:strict="true"-->
+        <!--/>-->
 
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false"
-        tools:strict="true"
-        />
+    <!--<uses-feature-->
+        <!--android:name="android.hardware.camera.autofocus"-->
+        <!--android:required="false"-->
+        <!--tools:strict="true"-->
+        <!--/>-->
 
-    <uses-feature
-        android:glEsVersion="0x20000"
-        android:required="false" />
+    <!--<uses-feature-->
+        <!--android:glEsVersion="0x20000"-->
+        <!--android:required="false" />-->
 
     <application
-        android:name=".MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        >
         <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:name=".BareActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize">
@@ -45,8 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-        <activity android:name=".PickerActivity" />
     </application>
 
 </manifest>
