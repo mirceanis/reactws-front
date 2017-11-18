@@ -2,10 +2,7 @@ package com.reactws;
 
 import android.app.Activity;
 import android.os.Bundle;
-
-/**
- * Created by mir on 18/11/2017.
- */
+import android.widget.Toast;
 
 public class BareActivity extends Activity {
 
@@ -14,5 +11,11 @@ public class BareActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.bare_metal);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(this, "Running version:" + BuildConfig.VERSION_NAME + "(" + BuildConfig.VERSION_CODE + ")", Toast.LENGTH_LONG).show();
     }
 }
