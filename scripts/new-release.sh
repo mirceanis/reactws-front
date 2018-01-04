@@ -45,4 +45,4 @@ git flow release finish -m "release r$new_version" ${new_version}
 
 #echo "pushing branches"
 #git push origin develop master
-#git push origin --tags
+git push origin --tags
