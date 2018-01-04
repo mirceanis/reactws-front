@@ -177,7 +177,7 @@ android {
             initWith(release)
             debuggable true
             signingConfig signingConfigs.debug
-            matchingFallbacks = ['release']
+            matchingFallbacks = ['release', 'debug']
         }
     }
 
