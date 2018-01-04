@@ -3,28 +3,36 @@
 buildscript {
 
     ext {
-
-        compile_sdk_version = 26
-        build_tools_version = "26.0.2"
-        gradle_tools_version = "3.0.0"
-        google_services_version = "3.0.0"
+        kotlin_version = "1.2.10"
+        build_tools_version = "27.0.2"
+        gradle_tools_version = "3.0.1"
+        google_tools_version = "3.1.2"
 
         //check for updates at https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
-        fabric_tools_version = "1.24.4"
+        fabric_tools_version = "1.24.5"
 
-        supportLibVersion = "26.1.0"
-        playServicesVersion = "11.6.0"
-        okhttpVersion = "3.6.0"
-        awsLibVersion = "2.3.9"
+        min_sdk_version = 23
+        compile_sdk_version = 27
 
-        testRunnerVersion = "1.0.0"
-        espressoVersion = "3.0.0"
-        junitVersion = "4.12"
+        target_sdk_version = compile_sdk_version
 
-        reactNativeVersion = "0.48.3"
-        onfidoVersion = "1.0.0"
+        constraint_layout_version = "1.0.2"
+        support_lib_version = "27.0.2"
+        play_services_version = "11.8.0"
+        aws_lib_version = "2.6.7"
+        okhttp_version = "3.9.1"
+        crashlytics_version = "2.7.1"
 
+        react_native_version = "0.50.4"
+        intercom_version = "3.2.10"
+        onfido_version = "2.0.0"
 
+        spongy_castle_version = "1.58.0.0"
+
+        test_runner_version = "1.0.1"
+        espresso_version = "3.0.1"
+        junit_version = "4.12"
+        mockito_version = "2.12.0"
     }
 
     repositories {
@@ -33,6 +41,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_tools_version"
+        classpath "com.google.gms:google-services:$google_tools_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -51,14 +61,14 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
         maven {
-            url  "https://dl.bintray.com/onfido/maven"
+            url "https://dl.bintray.com/onfido/maven"
         }
     }
 }
 
 subprojects { subproject ->
-    afterEvaluate{
-        if((subproject.plugins.hasPlugin('android') || subproject.plugins.hasPlugin('android-library'))) {
+    afterEvaluate {
+        if ((subproject.plugins.hasPlugin('android') || subproject.plugins.hasPlugin('android-library'))) {
             android {
                 compileSdkVersion compile_sdk_version
                 buildToolsVersion build_tools_version

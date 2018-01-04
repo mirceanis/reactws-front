@@ -104,14 +104,36 @@ task checkCleanRepo() {
     }
 }
 
-static def getBuildVersionName() {
-    def circleVersion = System.env.CIRCLE_VERSION_NAME?: '0.0.42'
-    return "$circleVersion"
+def getBuildVersionCode() {
+    Properties props = new Properties()
+    props.load(new FileInputStream("${rootDir}/version.properties"))
+    return Integer.valueOf(props.get('BUILD_NUMBER', '42'))
 }
 
-static int getBuildVersionCode() {
-    def code = computeVersionCode(getBuildVersionName())
-    return code
+def getBumpedVersion() {
+    int buildNumber = getBuildVersionCode() + 1
+    if (project.hasProperty("_BUILD_NUMBER")) {
+        buildNumber = Integer.valueOf(_BUILD_NUMBER)
+    }
+    return buildNumber
+}
+
+task bumpVersion() {
+    group "playstore"
+
+    doLast {
+        def newVersion = getBumpedVersion()
+        logger.lifecycle "Bumping build number from ${getBuildVersionCode()} to ${newVersion} \n"
+
+        Properties props = new Properties()
+        props.load(new FileInputStream("${rootDir}/version.properties"))
+
+        props.put('BUILD_NUMBER', "$newVersion".toString())
+        props.store(new FileOutputStream("${rootDir}/version.properties"),
+                "This is a generated file so things tend to get overwritten.\n" +
+                        "Use `gradlew bumpVersion` to increment the version by 1\n" +
+                        "or `gradlew bumpVersion -P_BUILD_NUMBER=<your specific version>` to set it manually")
+    }
 }
 
 def getBuildArtifactsDir() {
@@ -122,7 +144,6 @@ def getBuildArtifactsDir() {
 ///////////////apply the versions to the outside
 ext {
     getBuildVersionCode = this.&getBuildVersionCode
-    getBuildVersionName = this.&getBuildVersionName
     getBuildArtifactsDir = this.&getBuildArtifactsDir
 }
 ///////////////////
@@ -178,6 +199,13 @@ android.applicationVariants.all { variant ->
                 rename { String oldName ->
                     def flavor = variant.flavorName?:variant.buildType.name
                     "${rootProject.name}-${getVersionName()}-${flavor}-${abi}.apk".replaceAll(/\s/, "-")
+                }
+            }
+
+            from(output.outputFile) {
+                exclude "*release-unaligned.apk", "*debug-unaligned.apk"
+                rename { String oldName ->
+                    "latest-${abi}.apk".replaceAll(/\s/, "-")
                 }
             }
         }
