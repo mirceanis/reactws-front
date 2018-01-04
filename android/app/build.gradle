@@ -199,67 +199,67 @@ android {
 }
 
 dependencies {
-    compile(project(':react-native-firebase')) {
+    implementation(project(':react-native-firebase')) {
         transitive = false
     }
-    compile project(':react-native-svg')
-    compile project(':react-native-navigation')
-    compile project(':react-native-intercom')
-    compile project(':react-native-device-info')
-    compile project(':react-native-fetch-blob')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-passcode-android')
-    compile project(':react-native-fcm')
-    compile project(':react-native-randombytes')
-    compile project(':react-native-keychain')
-    compile project(':react-native-image-picker')
-    compile project(':react-native-camera')
-    compile project(':react-native-intent-launcher')
+    implementation project(':react-native-svg')
+    implementation project(':react-native-navigation')
+    implementation project(':react-native-intercom')
+    implementation project(':react-native-device-info')
+    implementation project(':react-native-fetch-blob')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-fcm')
+    implementation project(':react-native-randombytes')
+    implementation project(':react-native-keychain')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-camera')
+    implementation project(':react-native-intent-launcher')
 
-    compile "com.facebook.react:react-native:$react_native_version"
-    compile "com.onfido.sdk.capture:onfido-capture-sdk:$onfido_version"
+    implementation "com.facebook.react:react-native:$react_native_version"
+    implementation "com.onfido.sdk.capture:onfido-capture-sdk:$onfido_version"
 
-    compile fileTree(dir: "libs", include: ["*.jar"])
+    implementation fileTree(dir: "libs", include: ["*.jar"])
     // From node_modules
-    compile("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
+    implementation("com.crashlytics.sdk.android:crashlytics:$crashlytics_version@aar") {
         transitive = true
     }
-    // compile "com.instabug.library:instabug:3.2.0"
-    compile "io.intercom.android:intercom-sdk-base:$intercom_version"
+    // implementation "com.instabug.library:instabug:3.2.0"
+    implementation "io.intercom.android:intercom-sdk-base:$intercom_version"
     // ENABLE this once we have Firebase Messaging setup
-    // compile 'io.intercom.android:intercom-sdk-fcm:3.+'
+    // implementation 'io.intercom.android:intercom-sdk-fcm:3.+'
 
-    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
-    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
-    compile "com.google.android.gms:play-services-vision:$play_services_version"
-    compile "com.google.android.gms:play-services-location:$play_services_version"
-    compile "com.google.android.gms:play-services-places:$play_services_version"
-    compile "com.google.firebase:firebase-core:$play_services_version"
-    compile "com.google.firebase:firebase-messaging:$play_services_version"
-    compile "com.google.firebase:firebase-config:$play_services_version"
-    compile "com.google.firebase:firebase-analytics:$play_services_version"
+    implementation "com.google.android.gms:play-services-vision:$play_services_version"
+    implementation "com.google.android.gms:play-services-location:$play_services_version"
+    implementation "com.google.android.gms:play-services-places:$play_services_version"
+    implementation "com.google.firebase:firebase-core:$play_services_version"
+    implementation "com.google.firebase:firebase-messaging:$play_services_version"
+    implementation "com.google.firebase:firebase-config:$play_services_version"
+    implementation "com.google.firebase:firebase-analytics:$play_services_version"
 
     //noinspection GradleCompatible
-    compile "com.android.support:appcompat-v7:$support_lib_version"
-    compile "com.android.support:recyclerview-v7:$support_lib_version"
-    compile "com.android.support:design:$support_lib_version"
+    implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:recyclerview-v7:$support_lib_version"
+    implementation "com.android.support:design:$support_lib_version"
 
-    compile "com.amazonaws:aws-android-sdk-core:$aws_lib_version"
-    compile "com.amazonaws:aws-android-sdk-s3:$aws_lib_version"
-    compile "com.amazonaws:aws-android-sdk-ddb:$aws_lib_version"
-    compile "com.amazonaws:aws-android-sdk-cognito:$aws_lib_version"
-    compile "com.amazonaws:aws-android-sdk-cognitoidentityprovider:$aws_lib_version"
-    compile "com.amazonaws:aws-android-sdk-sns:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-core:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-s3:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-ddb:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-cognito:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-cognitoidentityprovider:$aws_lib_version"
+    implementation "com.amazonaws:aws-android-sdk-sns:$aws_lib_version"
 
-    androidTestCompile "com.android.support.test:runner:$test_runner_version"
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version", {
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
-    androidTestCompile "com.google.code.findbugs:jsr305:3.0.0"
+    androidTestImplementation "com.google.code.findbugs:jsr305:3.0.0"
 
-    testCompile "junit:junit:$junit_version"
+    testImplementation "junit:junit:$junit_version"
 
 }
 
