@@ -216,8 +216,6 @@ dependencies {
     compile project(':react-native-camera')
     compile project(':react-native-intent-launcher')
 
-    compile project(':react-native-signer-wrapper')
-
     compile "com.facebook.react:react-native:$react_native_version"
     compile "com.onfido.sdk.capture:onfido-capture-sdk:$onfido_version"
 
@@ -254,14 +252,14 @@ dependencies {
     compile "com.amazonaws:aws-android-sdk-cognitoidentityprovider:$aws_lib_version"
     compile "com.amazonaws:aws-android-sdk-sns:$aws_lib_version"
 
-    androidTestCompile "com.android.support.test:runner:$testRunnerVersion"
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
+    androidTestCompile "com.android.support.test:runner:$test_runner_version"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espresso_version", {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
     androidTestCompile "com.google.code.findbugs:jsr305:3.0.0"
 
-    testCompile "junit:junit:$junitVersion"
+    testCompile "junit:junit:$junit_version"
 
 }
 
