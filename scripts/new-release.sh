@@ -43,6 +43,5 @@ cd -
 echo "git flow release finish $new_version"
 git flow release finish -m "release r$new_version" ${new_version}
 
-#echo "pushing branches"
-#git push origin develop master
-git push origin --tags
+echo "The release has been finished locally only"
+echo "To push it, run \`git push origin master develop --tags\`"
