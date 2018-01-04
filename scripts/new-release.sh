@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+GIT_MERGE_AUTOEDIT=no
+
 ### This script is meant to go through git flow and create a new release with bumped versions
 ### It will fail if the current working dir is not clean when starting the process
 ### Since version codes can manually fall out of sync between the 2 platforms,
@@ -37,7 +39,7 @@ git add */project.pbxproj
 git commit -m "bump build version to $new_version"
 
 echo "git flow release finish $new_version"
-git flow release finish -k -m "release r$new_version" ${new_version}
+git flow release finish -ff-master -m "release r$new_version" ${new_version}
 
 #echo "pushing branches"
 #git push origin develop master
