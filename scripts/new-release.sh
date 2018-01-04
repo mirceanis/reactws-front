@@ -41,7 +41,7 @@ git commit -m "bump build version to $new_version"
 cd -
 
 echo "git flow release finish $new_version"
-git flow release finish -ff-master -m "release r$new_version" ${new_version}
+git flow release finish -p -m "release r$new_version" ${new_version}
 
 #echo "pushing branches"
 #git push origin develop master
