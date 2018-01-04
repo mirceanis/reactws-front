@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-GIT_MERGE_AUTOEDIT=no
+export GIT_MERGE_AUTOEDIT=no
 
 ### This script is meant to go through git flow and create a new release with bumped versions
 ### It will fail if the current working dir is not clean when starting the process
