@@ -33,10 +33,12 @@ echo "set ios version to $new_version"
 cd ${IOS_DIR} ; agvtool new-version -all ${new_version} ; cd -
 
 echo "commit"
+cd ${ROOT_DIR}
 git add */version.properties
 git add */Info.plist
 git add */project.pbxproj
 git commit -m "bump build version to $new_version"
+cd -
 
 echo "git flow release finish $new_version"
 git flow release finish -ff-master -m "release r$new_version" ${new_version}
