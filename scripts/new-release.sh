@@ -12,7 +12,7 @@ ANDROID_DIR="$ROOT_DIR/android"
 IOS_DIR="$ROOT_DIR/ios"
 
 echo "check clean repo"
-cd ${ANDROID_DIR} ; ./gradlew checkCleanRepo ; cd -
+cd ${ANDROID_DIR} ; ./gradlew -q checkCleanRepo ; cd -
 
 echo "get current version"
 cd ${IOS_DIR} ; current_version=$(xcrun agvtool what-version -terse) ; cd -
@@ -25,15 +25,15 @@ git fetch --all
 git flow release start ${new_version}
 
 echo "set android version to $new_version"
-cd ${ANDROID_DIR} ; ./gradlew bumpVersion -P_BUILD_NUMBER=${new_version}
+cd ${ANDROID_DIR} ; ./gradlew -q bumpVersion -P_BUILD_NUMBER=${new_version} ; cd -
 
 echo "set ios version to $new_version"
 cd ${IOS_DIR} ; agvtool new-version -all ${new_version} ; cd -
 
 echo "commit"
-git add android/version.properties
+git add */version.properties
 git add */Info.plist
-git add *.project.pbxproj
+git add */project.pbxproj
 git commit -m "bump build version to $new_version"
 
 echo "git flow release finish $new_version"
