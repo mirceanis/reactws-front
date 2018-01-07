@@ -447,3 +447,5 @@ jsconfig.json
 
 
 *.old
+
+android/fastlane/report.xml
