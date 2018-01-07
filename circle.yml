@@ -27,6 +27,7 @@ dependencies:
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --update
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "build-tools;27.0.2" "platforms;android-27"
+    - gem install bundler && bundle update
     - cd ~ && wget https://releases.hashicorp.com/vault/0.9.1/vault_0.9.1_linux_amd64.zip ; cd -
     - cd ~ && unzip vault_0.9.1_linux_amd64.zip ; cd -
 
@@ -34,6 +35,7 @@ dependencies:
     - ~/vault read -field=value secret/dummy/service_key | base64 -d > google-play-keys.json
     - ~/vault read -field=value secret/dummy/google_services | base64 -d > android/app/google-services.json
     - yarn install
+    - bundle check || bundle install --path vendor/bundle
     #this should force a dependency lookup and download
     - cd android && ./gradlew clean assembleDebug
   cache_directories:
@@ -43,6 +45,7 @@ dependencies:
     - android/.gradle
     - ~/.android
     - /usr/local/android-sdk-linux
+    - vendor/bundle
 general:
   artifacts:
     - "android/app/build/reports"
