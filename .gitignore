@@ -447,3 +447,7 @@ jsconfig.json
 
 
 *.old
+
+android/fastlane/report.xml
+android/app/google-services.json
+google-play-keys.json
