@@ -201,13 +201,6 @@ android.applicationVariants.all { variant ->
                     "${rootProject.name}-${getVersionName()}-${flavor}-${abi}.apk".replaceAll(/\s/, "-")
                 }
             }
-
-            from(output.outputFile) {
-                exclude "*release-unaligned.apk", "*debug-unaligned.apk"
-                rename { String oldName ->
-                    "latest-${abi}.apk".replaceAll(/\s/, "-")
-                }
-            }
         }
 
         //also copy the test-apk
