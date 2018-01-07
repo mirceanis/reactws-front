@@ -33,7 +33,7 @@ dependencies:
     - ~/vault read -field=value secret/dummy/google_services | base64 -d > android/app/google-services.json
     - yarn install
     #this should force a dependency lookup and download
-    - cd android && ./gradlew clean :app:preReleaseBuild
+    - cd android && ./gradlew clean preReleaseBuild compileReleaseAidl -PIGNORE_VAULT
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
