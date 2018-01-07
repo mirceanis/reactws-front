@@ -1,5 +1,11 @@
 # Change Log
 
+## [release-v61](https://github.com/mirceanis/reactws-front/tree/release-v61) (2018-01-07)
+[Full Changelog](https://github.com/mirceanis/reactws-front/compare/r11...release-v61)
+
+## [r11](https://github.com/mirceanis/reactws-front/tree/r11) (2018-01-04)
+[Full Changelog](https://github.com/mirceanis/reactws-front/compare/r10...r11)
+
 ## [r10](https://github.com/mirceanis/reactws-front/tree/r10) (2018-01-04)
 [Full Changelog](https://github.com/mirceanis/reactws-front/compare/r9...r10)
 
