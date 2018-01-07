@@ -7,10 +7,10 @@ import groovy.transform.Field
 @Field private File vaultKeystoreTempFile
 
 // hardcoded secret paths in vault
-@Field private static final String secretKeystoreFileData = "secret/android/keystore_file_data"
-@Field private static final String secretKeystorePassword = "secret/android/keystore_password"
-@Field private static final String secretKeyAlias = "secret/android/key_alias"
-@Field private static final String secretKeyPassword = "secret/android/key_password"
+@Field private static final String secretKeystoreFileData = "secret/dummy/keystore_file_data"
+@Field private static final String secretKeystorePassword = "secret/dummy/keystore_password"
+@Field private static final String secretKeyAlias = "secret/dummy/key_alias"
+@Field private static final String secretKeyPassword = "secret/dummy/key_password"
 
 /**
  * Utility function to check if a file can be read from this process
