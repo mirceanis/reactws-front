@@ -30,8 +30,7 @@ platform :android do
     # TODO: download json keyfle from vault
     # ...
     gradle(
-      task: 'deliverArchives',
-      flags: '-PIGNORE_VAULT -PIGNORE_REPOSITORY_STATE=true'
+      task: 'deliverArchives'
     )
     upload_to_play_store(
       track: 'alpha',

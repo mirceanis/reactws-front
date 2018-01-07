@@ -27,11 +27,10 @@ dependencies:
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "build-tools;27.0.2" "platforms;android-27"
     - cd ~ && wget https://releases.hashicorp.com/vault/0.9.1/vault_0.9.1_linux_amd64.zip ; cd -
     - cd ~ && unzip vault_0.9.1_linux_amd64.zip ; cd -
+
+  override:
     - ~/vault read -field=value secret/dummy/service_key | base64 -d > google-play-keys.json
     - ~/vault read -field=value secret/dummy/google_services | base64 -d > android/app/google-services.json
-
-    
-  override:
     - yarn install
     #this should force a dependency lookup and download
     - cd android && ./gradlew clean :app:preReleaseBuild
@@ -49,6 +48,8 @@ general:
 compile:
   override:
     - cd android && ./gradlew deliverArchives
+#  post:
+#    - rm android/app/google-services.json
 test:
   override:
 #    - yarn test -- --maxWorkers 2
@@ -56,3 +57,12 @@ test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
+
+deployment:
+  all_branches:
+    branch: master # master for release only or the regesx /.*?/ for all branches
+    commands:
+      # push to alpha channel
+      - cd android && fastlane android alpha ; cd -
+    post:
+      - rm google-play-keys.json
