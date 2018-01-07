@@ -43,8 +43,8 @@ platform :android do
     upload_to_play_store(
       track: 'alpha',
       apk_paths: [
-        './build/artifacts/latest-x86.apk',
-        './build/artifacts/latest-armeabi-v7a.apk'
+        '.app/build/outputs/apk/release/app-armeabi-v7a-release.apk',
+        '.app/build/outputs/apk/release/app-x86-release.apk'
         ],
       skip_upload_metadata: true,
       skip_upload_images: true,
