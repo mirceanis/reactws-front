@@ -1,5 +1,8 @@
 # Change Log
 
+## [release-v68](https://github.com/mirceanis/reactws-front/tree/release-v68) (2018-01-10)
+[Full Changelog](https://github.com/mirceanis/reactws-front/compare/release-v67...release-v68)
+
 ## [release-v67](https://github.com/mirceanis/reactws-front/tree/release-v67) (2018-01-10)
 [Full Changelog](https://github.com/mirceanis/reactws-front/compare/release-v66...release-v67)
 
