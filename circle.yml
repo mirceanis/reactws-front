@@ -37,7 +37,7 @@ dependencies:
     - yarn install
     - bundle check || bundle install --path vendor/bundle
     #this should force a dependency lookup and download
-    - cd android && ./gradlew clean assembleDebug
+    - cd android && ./gradlew clean assembleDebug :app:lintDebug
   cache_directories:
     - ~/.yarn
     - ~/.cache/yarn
