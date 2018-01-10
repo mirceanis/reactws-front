@@ -35,7 +35,7 @@ dependencies:
     - ~/vault read -field=value secret/dummy/service_key | base64 -d > google-play-keys.json
     - ~/vault read -field=value secret/dummy/google_services | base64 -d > android/app/google-services.json
     - yarn install
-    - bundle check || bundle install --path vendor/bundle
+    - bundle check || bundle install
     #this should force a dependency lookup and download
     - cd android && ./gradlew clean assembleDebug :app:lintDebug
   cache_directories:
@@ -45,7 +45,6 @@ dependencies:
     - android/.gradle
     - ~/.android
     - /usr/local/android-sdk-linux
-    - vendor/bundle
 general:
   artifacts:
     - "android/app/build/reports"
