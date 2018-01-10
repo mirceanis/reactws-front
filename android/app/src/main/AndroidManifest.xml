@@ -9,6 +9,11 @@
         tools:remove="${excludeSystemAlertWindowPermission}"
         />
 
+    <!--disable record-audio permission coming from libraries-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"
+        tools:remove="true"
+        />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true"
