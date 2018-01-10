@@ -1,4 +1,3 @@
-
 buildscript {
 
     repositories {
@@ -92,14 +91,15 @@ task checkCleanRepo() {
             gitStatus = "git status".execute().text
         } catch (IOException ignored) {
             //git executable not found
-            ignoreState = true;
+            ignoreState = true
         }
 
         if (!ignoreState && !gitStatus.contains('nothing to commit')) {
             throw new GradleException("There are some uncommited changes in your local git copy. "
                     + "Please clean your repo and try again!"
                     + "\n\nTo ignore this message, start gradle with -PIGNORE_REPOSITORY_STATE=true"
-                    + " or add `IGNORE_REPOSITORY_STATE=true` to your `gradle.properties` file" )
+                    + " or add `IGNORE_REPOSITORY_STATE=true` to your `gradle.properties` file"
+                    + "\n\nthe erroneous status is:\n$gitStatus")
         }
     }
 }
@@ -183,7 +183,7 @@ android.applicationVariants.all { variant ->
             from("${variant.mappingFile.parent}") {
                 include "mapping.txt"
                 rename { String oldName ->
-                    def flavor = variant.flavorName?:variant.buildType.name
+                    def flavor = variant.flavorName ?: variant.buildType.name
                     "${rootProject.name}-${getVersionName()}-${flavor}-mapping.txt".replaceAll(/\s/, "-")
                 }
             }
@@ -197,7 +197,7 @@ android.applicationVariants.all { variant ->
             from(output.outputFile) {
                 exclude "*release-unaligned.apk", "*debug-unaligned.apk"
                 rename { String oldName ->
-                    def flavor = variant.flavorName?:variant.buildType.name
+                    def flavor = variant.flavorName ?: variant.buildType.name
                     "${rootProject.name}-${getVersionName()}-${flavor}-${abi}.apk".replaceAll(/\s/, "-")
                 }
             }
