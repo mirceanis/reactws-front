@@ -27,7 +27,7 @@ dependencies:
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --update
     - yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
     - yes | $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "build-tools;27.0.2" "platforms;android-27"
-    - gem install bundler && bundle update
+    - gem install bundler
     - cd ~ && wget https://releases.hashicorp.com/vault/0.9.1/vault_0.9.1_linux_amd64.zip ; cd -
     - cd ~ && unzip vault_0.9.1_linux_amd64.zip ; cd -
 
